@@ -103,8 +103,12 @@
     <Resource Include="Images\81135230757537060_wJokUmoW_b.jpg" />
     <Resource Include="Images\2934fbdd305a01448424c1038e4ba74c1232974847_full.jpg" />
     <Resource Include="Images\go-ara-model.jpg" />
+    <Resource Include="Sounds\alarmSound.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

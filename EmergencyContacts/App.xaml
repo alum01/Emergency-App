@@ -8,6 +8,10 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <MediaElement
+            x:Name="AlarmSound"
+            Source="Sounds/alarmSound.wav"
+            AutoPlay="False"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

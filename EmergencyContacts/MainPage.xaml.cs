@@ -20,6 +20,8 @@ namespace EmergencyContacts
         //Initialize VideoCamera objects;
         private VideoCamera _videoCamera;
         private VideoCameraVisualizer _videoCameraVisualizer;
+        bool flashLightOn = false;
+        bool alarmOn = false;
 
 
         // Constructor
@@ -50,7 +52,6 @@ namespace EmergencyContacts
 
         }
 
-        bool flashLightOn = false;
         private void Flashlight_Tap(object sender, GestureEventArgs e)
         {
             if (!flashLightOn)
@@ -74,6 +75,22 @@ namespace EmergencyContacts
             {
                 _videoCamera = null;
             }
+        }
+
+        private void Alarm_Tap(object sender, GestureEventArgs e)
+        {
+            // Turn the alarm on.
+           /* if (!alarmOn)
+            {
+
+            }
+            else // Turn dat alarm off
+            {
+
+            }*/
+            //AlarmSound.Play();
+            App myCurrentApp = (App)Application.Current;
+            myCurrentApp.ToggleAlarmSound();
         }
 
     }

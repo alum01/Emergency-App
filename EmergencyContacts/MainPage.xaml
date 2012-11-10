@@ -46,14 +46,19 @@
             <controls:PanoramaItem Header="Tools">
                 <Grid Height="517" HorizontalAlignment="Left" Margin="3,-12,0,0" Name="grid1" VerticalAlignment="Top" Width="426">
                     <Image Height="153" HorizontalAlignment="Left" Margin="0,-12,0,0" Name="Flashlight" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/flashlight1.jpg" Tap="Flashlight_Tap" />
-                    <Image Height="153" HorizontalAlignment="Left" Margin="175,-12,0,0" Name="Alarm" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/alarm1.jpg" />
+                    <Image Height="153" HorizontalAlignment="Left" Margin="175,-12,0,0" Name="Alarm" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/alarm1.jpg" Tap="Alarm_Tap" />
                     <Image Height="153" HorizontalAlignment="Left" Margin="0,150,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/1290300211_crgalaxywaterbottle_9666511.jpeg" />
                     <Image Height="153" HorizontalAlignment="Left" Margin="175,150,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/2934fbdd305a01448424c1038e4ba74c1232974847_full.jpg" />
                     <Image Height="153" HorizontalAlignment="Left" Margin="0,312,0,0" Name="image3" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/81135230757537060_wJokUmoW_b.jpg" />
                     <Image Height="153" HorizontalAlignment="Left" Margin="175,312,0,0" Name="image4" Stretch="Fill" VerticalAlignment="Top" Width="167" Source="/EmergencyContacts;component/Images/go-ara-model.jpg" />
                 </Grid>
+                
+
             </controls:PanoramaItem>
             
+
+
+
             <!--Panorama item three-->
             <controls:PanoramaItem Header="Resources" Margin="0,0">
                 <ListBox Margin="0,0,-12,0" ItemsSource="{Binding Items2}" Height="1000">

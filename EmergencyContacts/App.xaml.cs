@@ -19,6 +19,9 @@ namespace EmergencyContacts
     {
         private static MainViewModel viewModel = null;
 
+        private MediaElement alarmSound = null;
+        private bool alarmPlaying = false;
+
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
@@ -74,6 +77,9 @@ namespace EmergencyContacts
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+
+            // Find the AlarmSound resource and store it
+            alarmSound = (MediaElement)this.Resources["AlarmSound"];
 
         }
 
@@ -162,5 +168,21 @@ namespace EmergencyContacts
         }
 
         #endregion
+
+        // Code to play the alarm siren resources (eventually on an infinite loop)
+        public void ToggleAlarmSound()
+        {
+            if (alarmPlaying)
+            {
+                alarmSound.Stop();
+            }
+            else
+            {
+                alarmSound.Position = TimeSpan.Zero;
+                alarmSound.Play();
+            }
+            alarmPlaying = !alarmPlaying;
+        }
+
     }
 }
