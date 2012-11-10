@@ -62,6 +62,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FlashLight\VideoCamera.cs" />
+    <Compile Include="FlashLight\VideoCameraVisualizer.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -95,6 +97,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="PanoramaBackground.png" />
+    <Resource Include="Images\alarm1.jpg" />
+    <Resource Include="Images\flashlight1.jpg" />
+    <Resource Include="Images\1290300211_crgalaxywaterbottle_9666511.jpeg" />
+    <Resource Include="Images\81135230757537060_wJokUmoW_b.jpg" />
+    <Resource Include="Images\2934fbdd305a01448424c1038e4ba74c1232974847_full.jpg" />
+    <Resource Include="Images\go-ara-model.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

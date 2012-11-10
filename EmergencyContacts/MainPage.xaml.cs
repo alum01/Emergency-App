@@ -10,11 +10,18 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Devices;
+
 
 namespace EmergencyContacts
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        //Initialize VideoCamera objects;
+        private VideoCamera _videoCamera;
+        private VideoCameraVisualizer _videoCameraVisualizer;
+
+
         // Constructor
         public MainPage()
         {
@@ -32,6 +39,42 @@ namespace EmergencyContacts
             {
                 App.ViewModel.LoadData();
             }
+
+           
         }
+
+        private void VideoCamera_Initialized(object sender, EventArgs e)
+        {
+            _videoCamera.LampEnabled = true;
+            _videoCamera.StartRecording();
+
+        }
+
+        bool flashLightOn = false;
+        private void Flashlight_Tap(object sender, GestureEventArgs e)
+        {
+            if (!flashLightOn)
+            {
+                // Check to see if the camera is available on the device.
+                if (PhotoCamera.IsCameraTypeSupported(CameraType.Primary))
+                {
+                    // Use standard camera on back of device.
+                    _videoCamera = new VideoCamera();
+
+                    // Event is fired when the video camera object has been initialized.
+                    _videoCamera.Initialized += VideoCamera_Initialized;
+
+                    // Add the photo camera to the video source
+                    _videoCameraVisualizer = new VideoCameraVisualizer();
+                    _videoCameraVisualizer.SetSource(_videoCamera);
+                }
+                flashLightOn = true;
+            }
+            else
+            {
+                _videoCamera = null;
+            }
+        }
+
     }
 }
