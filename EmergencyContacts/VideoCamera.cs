@@ -11,6 +11,7 @@ namespace EmergencyContacts
 		private object _videoCamera;
 		private PropertyInfo _videoCameraLampEnabledPropertyInfo;
 		private MethodInfo _videoCameraStartRecordingMethod;
+        private MethodInfo _videoCameraStopRecordingMethod;
 		private EventHandler _videoCameraInitialized;
 
 		public object InnerCameraObject
@@ -42,6 +43,7 @@ namespace EmergencyContacts
 			// Set the properties and methods.
 			_videoCameraLampEnabledPropertyInfo = videoCameraType.GetProperty("LampEnabled");
 			_videoCameraStartRecordingMethod = videoCameraType.GetMethod("StartRecording");
+            _videoCameraStopRecordingMethod =videoCameraType.GetMethod("StopRecording");
 
 			// Let the initialize event bubble through.
 			_videoCameraInitialized = new EventHandler(VideoCamera_Initialized);
@@ -75,5 +77,11 @@ namespace EmergencyContacts
 			// Invoke the start recording method on the video camera object.
 			_videoCameraStartRecordingMethod.Invoke(_videoCamera, new object[0]);
 		}
+
+        public void StopRecording()
+        {
+            // Invoke the stop recording method on the video camera object.
+            _videoCameraStopRecordingMethod.Invoke(_videoCamera, null);
+        }
 	}
 }

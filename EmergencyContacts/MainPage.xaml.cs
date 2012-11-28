@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Devices;
+using System.IO.IsolatedStorage;
 
 
 namespace EmergencyContacts
@@ -20,9 +21,9 @@ namespace EmergencyContacts
         //Initialize VideoCamera objects;
         private VideoCamera _videoCamera;
         private VideoCameraVisualizer _videoCameraVisualizer;
-        bool flashLightOn = false;
-        bool alarmOn = false;
-
+        bool flashOn = false;
+        bool flashInitialized = false;
+        IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
 
         // Constructor
         public MainPage()
@@ -34,6 +35,7 @@ namespace EmergencyContacts
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
+     
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -41,20 +43,11 @@ namespace EmergencyContacts
             {
                 App.ViewModel.LoadData();
             }
-
-           
         }
 
-        private void VideoCamera_Initialized(object sender, EventArgs e)
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            _videoCamera.LampEnabled = true;
-            _videoCamera.StartRecording();
-
-        }
-
-        private void Flashlight_Tap(object sender, GestureEventArgs e)
-        {
-            if (!flashLightOn)
+            if (flashInitialized == false)
             {
                 // Check to see if the camera is available on the device.
                 if (PhotoCamera.IsCameraTypeSupported(CameraType.Primary))
@@ -69,29 +62,69 @@ namespace EmergencyContacts
                     _videoCameraVisualizer = new VideoCameraVisualizer();
                     _videoCameraVisualizer.SetSource(_videoCamera);
                 }
-                flashLightOn = true;
+                flashInitialized = true;
+            }
+
+            if (settings.Contains("myInfo"))
+            {
+                iceText.Text = settings["myInfo"].ToString();
             }
             else
             {
-                _videoCamera = null;
+                settings.Add("myInfo", "IMPORTANT IN CASE OF EMERGENCY INFORMATION: PLEASE CHANGE");
+            }
+        }
+
+
+        private void VideoCamera_Initialized(object sender, EventArgs e)
+        {
+           // _videoCamera.LampEnabled = true;
+           // _videoCamera.StartRecording();
+
+        }
+
+    
+
+        private void Flashlight_Tap(object sender, GestureEventArgs e)
+        {
+            if (flashOn == false)
+            {
+                _videoCamera.LampEnabled = true;
+                _videoCamera.StartRecording();
+                flashOn = true;
+            }
+            else
+            {
+                _videoCamera.StopRecording();
+                flashOn = false;
             }
         }
 
         private void Alarm_Tap(object sender, GestureEventArgs e)
         {
-            // Turn the alarm on.
-           /* if (!alarmOn)
-            {
-
-            }
-            else // Turn dat alarm off
-            {
-
-            }*/
-            //AlarmSound.Play();
             App myCurrentApp = (App)Application.Current;
             myCurrentApp.ToggleAlarmSound();
         }
 
+
+        private void ContactsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedName = App.ViewModel.Items.ElementAt(ContactsListBox.SelectedIndex).LineOne;
+            string selectedNumber = App.ViewModel.Items.ElementAt(ContactsListBox.SelectedIndex).LineThree;
+            NavigationService.Navigate(new Uri("/ContactDetail.xaml?name=" + selectedName + "&number=" + selectedNumber, UriKind.Relative));
+        }
+
+        private void iceText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            settings["myInfo"] = iceText.Text;
+        }
+
+        private void ResourcesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedName2 = App.ViewModel.Items2.ElementAt(ResourcesListBox.SelectedIndex).LineOne;
+            string selectedNumber2 = App.ViewModel.Items2.ElementAt(ResourcesListBox.SelectedIndex).LineThree;
+            string info = App.ViewModel.Items2.ElementAt(ResourcesListBox.SelectedIndex).LineFour;
+            NavigationService.Navigate(new Uri("/ContactDetail.xaml?name=" + selectedName2 + "&number=" + selectedNumber2 +"&info=" + info, UriKind.Relative));
+        }
     }
 }
